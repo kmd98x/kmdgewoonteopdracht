@@ -1,0 +1,558 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.5.0
+2 info using node@v20.12.2
+3 timing npm:load:whichnode Completed in 2ms
+4 timing config:load:defaults Completed in 2ms
+5 timing config:load:file:/usr/local/lib/node_modules/npm/npmrc Completed in 2ms
+6 timing config:load:builtin Completed in 2ms
+7 timing config:load:cli Completed in 3ms
+8 timing config:load:env Completed in 0ms
+9 timing config:load:file:/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/.npmrc Completed in 1ms
+10 timing config:load:project Completed in 10ms
+11 timing config:load:file:/Users/rammah/.npmrc Completed in 1ms
+12 timing config:load:user Completed in 1ms
+13 timing config:load:file:/usr/local/etc/npmrc Completed in 0ms
+14 timing config:load:global Completed in 1ms
+15 timing config:load:setEnvs Completed in 1ms
+16 timing config:load Completed in 21ms
+17 timing npm:load:configload Completed in 21ms
+18 timing config:load:flatten Completed in 3ms
+19 timing npm:load:mkdirpcache Completed in 0ms
+20 timing npm:load:mkdirplogs Completed in 0ms
+21 verbose title npm install
+22 verbose argv "install" "--cache" "./.npm-cache"
+23 timing npm:load:setTitle Completed in 1ms
+24 timing npm:load:display Completed in 1ms
+25 verbose logfile logs-max:10 dir:/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/.npm-cache/_logs/2025-10-29T09_42_11_330Z-
+26 verbose logfile /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/.npm-cache/_logs/2025-10-29T09_42_11_330Z-debug-0.log
+27 timing npm:load:logFile Completed in 11ms
+28 timing npm:load:timers Completed in 0ms
+29 timing npm:load:configScope Completed in 0ms
+30 timing npm:load Completed in 57ms
+31 timing arborist:ctor Completed in 1ms
+32 silly logfile done cleaning log files
+33 timing idealTree:init Completed in 130ms
+34 timing idealTree:userRequests Completed in 0ms
+35 silly idealTree buildDeps
+36 timing idealTree:#root Completed in 0ms
+37 timing idealTree:buildDeps Completed in 2ms
+38 timing idealTree:fixDepFlags Completed in 0ms
+39 timing idealTree Completed in 137ms
+40 timing arborist:ctor Completed in 0ms
+41 timing reify:loadTrees Completed in 180ms
+42 timing reify:diffTrees Completed in 6ms
+43 silly reify moves {}
+44 timing reify:retireShallow Completed in 1ms
+45 timing reify:createSparse Completed in 5ms
+46 timing reify:loadBundles Completed in 0ms
+47 silly audit bulk request {
+47 silly audit   '@alloc/quick-lru': [ '5.2.0' ],
+47 silly audit   '@babel/code-frame': [ '7.27.1' ],
+47 silly audit   '@babel/compat-data': [ '7.28.5' ],
+47 silly audit   '@babel/core': [ '7.28.5' ],
+47 silly audit   '@babel/generator': [ '7.28.5' ],
+47 silly audit   '@babel/helper-compilation-targets': [ '7.27.2' ],
+47 silly audit   '@babel/helper-globals': [ '7.28.0' ],
+47 silly audit   '@babel/helper-module-imports': [ '7.27.1' ],
+47 silly audit   '@babel/helper-module-transforms': [ '7.28.3' ],
+47 silly audit   '@babel/helper-plugin-utils': [ '7.27.1' ],
+47 silly audit   '@babel/helper-string-parser': [ '7.27.1' ],
+47 silly audit   '@babel/helper-validator-identifier': [ '7.28.5' ],
+47 silly audit   '@babel/helper-validator-option': [ '7.27.1' ],
+47 silly audit   '@babel/helpers': [ '7.28.4' ],
+47 silly audit   '@babel/parser': [ '7.28.5' ],
+47 silly audit   '@babel/plugin-transform-react-jsx-self': [ '7.27.1' ],
+47 silly audit   '@babel/plugin-transform-react-jsx-source': [ '7.27.1' ],
+47 silly audit   '@babel/template': [ '7.27.2' ],
+47 silly audit   '@babel/traverse': [ '7.28.5' ],
+47 silly audit   '@babel/types': [ '7.28.5' ],
+47 silly audit   '@esbuild/aix-ppc64': [ '0.21.5' ],
+47 silly audit   '@esbuild/android-arm': [ '0.21.5' ],
+47 silly audit   '@esbuild/android-arm64': [ '0.21.5' ],
+47 silly audit   '@esbuild/android-x64': [ '0.21.5' ],
+47 silly audit   '@esbuild/darwin-arm64': [ '0.21.5' ],
+47 silly audit   '@esbuild/darwin-x64': [ '0.21.5' ],
+47 silly audit   '@esbuild/freebsd-arm64': [ '0.21.5' ],
+47 silly audit   '@esbuild/freebsd-x64': [ '0.21.5' ],
+47 silly audit   '@esbuild/linux-arm': [ '0.21.5' ],
+47 silly audit   '@esbuild/linux-arm64': [ '0.21.5' ],
+47 silly audit   '@esbuild/linux-ia32': [ '0.21.5' ],
+47 silly audit   '@esbuild/linux-loong64': [ '0.21.5' ],
+47 silly audit   '@esbuild/linux-mips64el': [ '0.21.5' ],
+47 silly audit   '@esbuild/linux-ppc64': [ '0.21.5' ],
+47 silly audit   '@esbuild/linux-riscv64': [ '0.21.5' ],
+47 silly audit   '@esbuild/linux-s390x': [ '0.21.5' ],
+47 silly audit   '@esbuild/linux-x64': [ '0.21.5' ],
+47 silly audit   '@esbuild/netbsd-x64': [ '0.21.5' ],
+47 silly audit   '@esbuild/openbsd-x64': [ '0.21.5' ],
+47 silly audit   '@esbuild/sunos-x64': [ '0.21.5' ],
+47 silly audit   '@esbuild/win32-arm64': [ '0.21.5' ],
+47 silly audit   '@esbuild/win32-ia32': [ '0.21.5' ],
+47 silly audit   '@esbuild/win32-x64': [ '0.21.5' ],
+47 silly audit   '@isaacs/cliui': [ '8.0.2' ],
+47 silly audit   '@jridgewell/gen-mapping': [ '0.3.13' ],
+47 silly audit   '@jridgewell/remapping': [ '2.3.5' ],
+47 silly audit   '@jridgewell/resolve-uri': [ '3.1.2' ],
+47 silly audit   '@jridgewell/sourcemap-codec': [ '1.5.5' ],
+47 silly audit   '@jridgewell/trace-mapping': [ '0.3.31' ],
+47 silly audit   '@nodelib/fs.scandir': [ '2.1.5' ],
+47 silly audit   '@nodelib/fs.stat': [ '2.0.5' ],
+47 silly audit   '@nodelib/fs.walk': [ '1.2.8' ],
+47 silly audit   '@pkgjs/parseargs': [ '0.11.0' ],
+47 silly audit   '@rolldown/pluginutils': [ '1.0.0-beta.27' ],
+47 silly audit   '@rollup/rollup-android-arm-eabi': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-android-arm64': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-darwin-arm64': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-darwin-x64': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-freebsd-arm64': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-freebsd-x64': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-linux-arm-gnueabihf': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-linux-arm-musleabihf': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-linux-arm64-gnu': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-linux-arm64-musl': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-linux-loong64-gnu': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-linux-ppc64-gnu': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-linux-riscv64-gnu': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-linux-riscv64-musl': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-linux-s390x-gnu': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-linux-x64-gnu': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-linux-x64-musl': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-openharmony-arm64': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-win32-arm64-msvc': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-win32-ia32-msvc': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-win32-x64-gnu': [ '4.52.5' ],
+47 silly audit   '@rollup/rollup-win32-x64-msvc': [ '4.52.5' ],
+47 silly audit   '@types/babel__core': [ '7.20.5' ],
+47 silly audit   '@types/babel__generator': [ '7.27.0' ],
+47 silly audit   '@types/babel__template': [ '7.4.4' ],
+47 silly audit   '@types/babel__traverse': [ '7.28.0' ],
+47 silly audit   '@types/estree': [ '1.0.8' ],
+47 silly audit   '@types/prop-types': [ '15.7.15' ],
+47 silly audit   '@types/react': [ '18.3.26' ],
+47 silly audit   '@types/react-dom': [ '18.3.7' ],
+47 silly audit   '@vitejs/plugin-react': [ '4.7.0' ],
+47 silly audit   'ansi-regex': [ '6.2.2', '5.0.1' ],
+47 silly audit   'ansi-styles': [ '6.2.3', '4.3.0' ],
+47 silly audit   'any-promise': [ '1.3.0' ],
+47 silly audit   anymatch: [ '3.1.3' ],
+47 silly audit   arg: [ '5.0.2' ],
+47 silly audit   autoprefixer: [ '10.4.21' ],
+47 silly audit   'balanced-match': [ '1.0.2' ],
+47 silly audit   'baseline-browser-mapping': [ '2.8.20' ],
+47 silly audit   'binary-extensions': [ '2.3.0' ],
+47 silly audit   'brace-expansion': [ '2.0.2' ],
+47 silly audit   braces: [ '3.0.3' ],
+47 silly audit   browserslist: [ '4.27.0' ],
+47 silly audit   'camelcase-css': [ '2.0.1' ],
+47 silly audit   'caniuse-lite': [ '1.0.30001751' ],
+47 silly audit   chokidar: [ '3.6.0' ],
+47 silly audit   'glob-parent': [ '5.1.2', '6.0.2' ],
+47 silly audit   'color-convert': [ '2.0.1' ],
+47 silly audit   'color-name': [ '1.1.4' ],
+47 silly audit   commander: [ '4.1.1' ],
+47 silly audit   'convert-source-map': [ '2.0.0' ],
+47 silly audit   'cross-spawn': [ '7.0.6' ],
+47 silly audit   cssesc: [ '3.0.0' ],
+47 silly audit   csstype: [ '3.1.3' ],
+47 silly audit   debug: [ '4.4.3' ],
+47 silly audit   didyoumean: [ '1.2.2' ],
+47 silly audit   dlv: [ '1.1.3' ],
+47 silly audit   eastasianwidth: [ '0.2.0' ],
+47 silly audit   'electron-to-chromium': [ '1.5.243' ],
+47 silly audit   'emoji-regex': [ '9.2.2', '8.0.0' ],
+47 silly audit   esbuild: [ '0.21.5' ],
+47 silly audit   escalade: [ '3.2.0' ],
+47 silly audit   'fast-glob': [ '3.3.3' ],
+47 silly audit   fastq: [ '1.19.1' ],
+47 silly audit   'fill-range': [ '7.1.1' ],
+47 silly audit   'foreground-child': [ '3.3.1' ],
+47 silly audit   'fraction.js': [ '4.3.7' ],
+47 silly audit   'framer-motion': [ '11.18.2' ],
+47 silly audit   fsevents: [ '2.3.3' ],
+47 silly audit   'function-bind': [ '1.1.2' ],
+47 silly audit   gensync: [ '1.0.0-beta.2' ],
+47 silly audit   glob: [ '10.4.5' ],
+47 silly audit   hasown: [ '2.0.2' ],
+47 silly audit   'is-binary-path': [ '2.1.0' ],
+47 silly audit   'is-core-module': [ '2.16.1' ],
+47 silly audit   'is-extglob': [ '2.1.1' ],
+47 silly audit   'is-fullwidth-code-point': [ '3.0.0' ],
+47 silly audit   'is-glob': [ '4.0.3' ],
+47 silly audit   'is-number': [ '7.0.0' ],
+47 silly audit   isexe: [ '2.0.0' ],
+47 silly audit   jackspeak: [ '3.4.3' ],
+47 silly audit   jiti: [ '1.21.7' ],
+47 silly audit   'js-tokens': [ '4.0.0' ],
+47 silly audit   jsesc: [ '3.1.0' ],
+47 silly audit   json5: [ '2.2.3' ],
+47 silly audit   lilconfig: [ '3.1.3' ],
+47 silly audit   'lines-and-columns': [ '1.2.4' ],
+47 silly audit   'loose-envify': [ '1.4.0' ],
+47 silly audit   'lru-cache': [ '5.1.1', '10.4.3' ],
+47 silly audit   merge2: [ '1.4.1' ],
+47 silly audit   micromatch: [ '4.0.8' ],
+47 silly audit   minimatch: [ '9.0.5' ],
+47 silly audit   minipass: [ '7.1.2' ],
+47 silly audit   'motion-dom': [ '11.18.1' ],
+47 silly audit   'motion-utils': [ '11.18.1' ],
+47 silly audit   ms: [ '2.1.3' ],
+47 silly audit   mz: [ '2.7.0' ],
+47 silly audit   nanoid: [ '3.3.11' ],
+47 silly audit   'node-releases': [ '2.0.26' ],
+47 silly audit   'normalize-path': [ '3.0.0' ],
+47 silly audit   'normalize-range': [ '0.1.2' ],
+47 silly audit   'object-assign': [ '4.1.1' ],
+47 silly audit   'object-hash': [ '3.0.0' ],
+47 silly audit   'package-json-from-dist': [ '1.0.1' ],
+47 silly audit   'path-key': [ '3.1.1' ],
+47 silly audit   'path-parse': [ '1.0.7' ],
+47 silly audit   'path-scurry': [ '1.11.1' ],
+47 silly audit   picocolors: [ '1.1.1' ],
+47 silly audit   picomatch: [ '2.3.1' ],
+47 silly audit   pify: [ '2.3.0' ],
+47 silly audit   pirates: [ '4.0.7' ],
+47 silly audit   postcss: [ '8.5.6' ],
+47 silly audit   'postcss-import': [ '15.1.0' ],
+47 silly audit   'postcss-js': [ '4.1.0' ],
+47 silly audit   'postcss-load-config': [ '6.0.1' ],
+47 silly audit   'postcss-nested': [ '6.2.0' ],
+47 silly audit   'postcss-selector-parser': [ '6.1.2' ],
+47 silly audit   'postcss-value-parser': [ '4.2.0' ],
+47 silly audit   'queue-microtask': [ '1.2.3' ],
+47 silly audit   react: [ '18.3.1' ],
+47 silly audit   'react-dom': [ '18.3.1' ],
+47 silly audit   'react-refresh': [ '0.17.0' ],
+47 silly audit   'read-cache': [ '1.0.0' ],
+47 silly audit   readdirp: [ '3.6.0' ],
+47 silly audit   resolve: [ '1.22.11' ],
+47 silly audit   reusify: [ '1.1.0' ],
+47 silly audit   rollup: [ '4.52.5' ],
+47 silly audit   'run-parallel': [ '1.2.0' ],
+47 silly audit   scheduler: [ '0.23.2' ],
+47 silly audit   semver: [ '6.3.1' ],
+47 silly audit   'shebang-command': [ '2.0.0' ],
+47 silly audit   'shebang-regex': [ '3.0.0' ],
+47 silly audit   'signal-exit': [ '4.1.0' ],
+47 silly audit   'source-map-js': [ '1.2.1' ],
+47 silly audit   'string-width': [ '5.1.2', '4.2.3' ],
+47 silly audit   'strip-ansi': [ '6.0.1', '7.1.2' ],
+47 silly audit   sucrase: [ '3.35.0' ],
+47 silly audit   'supports-preserve-symlinks-flag': [ '1.0.0' ],
+47 silly audit   tailwindcss: [ '3.4.18' ],
+47 silly audit   thenify: [ '3.3.1' ],
+47 silly audit   'thenify-all': [ '1.6.0' ],
+47 silly audit   'to-regex-range': [ '5.0.1' ],
+47 silly audit   'ts-interface-checker': [ '0.1.13' ],
+47 silly audit   tslib: [ '2.8.1' ],
+47 silly audit   'update-browserslist-db': [ '1.1.4' ],
+47 silly audit   'util-deprecate': [ '1.0.2' ],
+47 silly audit   vite: [ '5.4.21' ],
+47 silly audit   which: [ '2.0.2' ],
+47 silly audit   'wrap-ansi': [ '8.1.0', '7.0.0' ],
+47 silly audit   yallist: [ '3.1.1' ]
+47 silly audit }
+48 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-win32-x64-msvc
+49 silly reify mark deleted [
+49 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-win32-x64-msvc'
+49 silly reify ]
+50 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-win32-x64-gnu
+51 silly reify mark deleted [
+51 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-win32-x64-gnu'
+51 silly reify ]
+52 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-win32-ia32-msvc
+53 silly reify mark deleted [
+53 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-win32-ia32-msvc'
+53 silly reify ]
+54 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-win32-arm64-msvc
+55 silly reify mark deleted [
+55 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-win32-arm64-msvc'
+55 silly reify ]
+56 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-openharmony-arm64
+57 silly reify mark deleted [
+57 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-openharmony-arm64'
+57 silly reify ]
+58 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-x64-musl
+59 silly reify mark deleted [
+59 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-x64-musl'
+59 silly reify ]
+60 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-x64-gnu
+61 silly reify mark deleted [
+61 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-x64-gnu'
+61 silly reify ]
+62 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-s390x-gnu
+63 silly reify mark deleted [
+63 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-s390x-gnu'
+63 silly reify ]
+64 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-riscv64-musl
+65 silly reify mark deleted [
+65 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-riscv64-musl'
+65 silly reify ]
+66 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-riscv64-gnu
+67 silly reify mark deleted [
+67 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-riscv64-gnu'
+67 silly reify ]
+68 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-ppc64-gnu
+69 silly reify mark deleted [
+69 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-ppc64-gnu'
+69 silly reify ]
+70 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-loong64-gnu
+71 silly reify mark deleted [
+71 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-loong64-gnu'
+71 silly reify ]
+72 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-arm64-musl
+73 silly reify mark deleted [
+73 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-arm64-musl'
+73 silly reify ]
+74 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-arm64-gnu
+75 silly reify mark deleted [
+75 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-arm64-gnu'
+75 silly reify ]
+76 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-arm-musleabihf
+77 silly reify mark deleted [
+77 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-arm-musleabihf'
+77 silly reify ]
+78 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-arm-gnueabihf
+79 silly reify mark deleted [
+79 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-linux-arm-gnueabihf'
+79 silly reify ]
+80 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-freebsd-x64
+81 silly reify mark deleted [
+81 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-freebsd-x64'
+81 silly reify ]
+82 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-freebsd-arm64
+83 silly reify mark deleted [
+83 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-freebsd-arm64'
+83 silly reify ]
+84 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-darwin-arm64
+85 silly reify mark deleted [
+85 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-darwin-arm64'
+85 silly reify ]
+86 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-android-arm64
+87 silly reify mark deleted [
+87 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-android-arm64'
+87 silly reify ]
+88 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-android-arm-eabi
+89 silly reify mark deleted [
+89 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@rollup/rollup-android-arm-eabi'
+89 silly reify ]
+90 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/win32-x64
+91 silly reify mark deleted [
+91 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/win32-x64'
+91 silly reify ]
+92 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/win32-ia32
+93 silly reify mark deleted [
+93 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/win32-ia32'
+93 silly reify ]
+94 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/win32-arm64
+95 silly reify mark deleted [
+95 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/win32-arm64'
+95 silly reify ]
+96 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/sunos-x64
+97 silly reify mark deleted [
+97 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/sunos-x64'
+97 silly reify ]
+98 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/openbsd-x64
+99 silly reify mark deleted [
+99 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/openbsd-x64'
+99 silly reify ]
+100 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/netbsd-x64
+101 silly reify mark deleted [
+101 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/netbsd-x64'
+101 silly reify ]
+102 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-x64
+103 silly reify mark deleted [
+103 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-x64'
+103 silly reify ]
+104 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-s390x
+105 silly reify mark deleted [
+105 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-s390x'
+105 silly reify ]
+106 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-riscv64
+107 silly reify mark deleted [
+107 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-riscv64'
+107 silly reify ]
+108 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-ppc64
+109 silly reify mark deleted [
+109 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-ppc64'
+109 silly reify ]
+110 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-mips64el
+111 silly reify mark deleted [
+111 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-mips64el'
+111 silly reify ]
+112 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-loong64
+113 silly reify mark deleted [
+113 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-loong64'
+113 silly reify ]
+114 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-ia32
+115 silly reify mark deleted [
+115 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-ia32'
+115 silly reify ]
+116 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-arm64
+117 silly reify mark deleted [
+117 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-arm64'
+117 silly reify ]
+118 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-arm
+119 silly reify mark deleted [
+119 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/linux-arm'
+119 silly reify ]
+120 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/freebsd-x64
+121 silly reify mark deleted [
+121 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/freebsd-x64'
+121 silly reify ]
+122 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/freebsd-arm64
+123 silly reify mark deleted [
+123 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/freebsd-arm64'
+123 silly reify ]
+124 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/darwin-arm64
+125 silly reify mark deleted [
+125 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/darwin-arm64'
+125 silly reify ]
+126 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/android-x64
+127 silly reify mark deleted [
+127 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/android-x64'
+127 silly reify ]
+128 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/android-arm64
+129 silly reify mark deleted [
+129 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/android-arm64'
+129 silly reify ]
+130 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/android-arm
+131 silly reify mark deleted [
+131 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/android-arm'
+131 silly reify ]
+132 verbose reify failed optional dependency /Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/aix-ppc64
+133 silly reify mark deleted [
+133 silly reify   '/Users/rammah/Desktop/projects/practice/kmds-gewoonte-opdracht/node_modules/@esbuild/aix-ppc64'
+133 silly reify ]
+134 timing reifyNode:node_modules/@rollup/rollup-win32-x64-msvc Completed in 91ms
+135 timing reifyNode:node_modules/@rollup/rollup-win32-x64-gnu Completed in 91ms
+136 timing reifyNode:node_modules/@rollup/rollup-win32-ia32-msvc Completed in 91ms
+137 timing reifyNode:node_modules/@rollup/rollup-win32-arm64-msvc Completed in 91ms
+138 timing reifyNode:node_modules/@rollup/rollup-openharmony-arm64 Completed in 91ms
+139 timing reifyNode:node_modules/@rollup/rollup-linux-x64-musl Completed in 90ms
+140 timing reifyNode:node_modules/@rollup/rollup-linux-x64-gnu Completed in 91ms
+141 timing reifyNode:node_modules/@rollup/rollup-linux-s390x-gnu Completed in 91ms
+142 timing reifyNode:node_modules/@rollup/rollup-linux-riscv64-musl Completed in 91ms
+143 timing reifyNode:node_modules/@rollup/rollup-linux-riscv64-gnu Completed in 91ms
+144 timing reifyNode:node_modules/@rollup/rollup-linux-ppc64-gnu Completed in 91ms
+145 timing reifyNode:node_modules/@rollup/rollup-linux-loong64-gnu Completed in 91ms
+146 timing reifyNode:node_modules/@rollup/rollup-linux-arm64-musl Completed in 91ms
+147 timing reifyNode:node_modules/@rollup/rollup-linux-arm64-gnu Completed in 91ms
+148 timing reifyNode:node_modules/@rollup/rollup-linux-arm-musleabihf Completed in 91ms
+149 timing reifyNode:node_modules/@rollup/rollup-linux-arm-gnueabihf Completed in 91ms
+150 timing reifyNode:node_modules/@rollup/rollup-freebsd-x64 Completed in 91ms
+151 timing reifyNode:node_modules/@rollup/rollup-freebsd-arm64 Completed in 90ms
+152 timing reifyNode:node_modules/@rollup/rollup-darwin-arm64 Completed in 91ms
+153 timing reifyNode:node_modules/@rollup/rollup-android-arm64 Completed in 91ms
+154 timing reifyNode:node_modules/@rollup/rollup-android-arm-eabi Completed in 91ms
+155 timing reifyNode:node_modules/@esbuild/win32-x64 Completed in 91ms
+156 timing reifyNode:node_modules/@esbuild/win32-ia32 Completed in 91ms
+157 timing reifyNode:node_modules/@esbuild/win32-arm64 Completed in 91ms
+158 timing reifyNode:node_modules/@esbuild/sunos-x64 Completed in 93ms
+159 timing reifyNode:node_modules/@esbuild/openbsd-x64 Completed in 93ms
+160 timing reifyNode:node_modules/@esbuild/netbsd-x64 Completed in 93ms
+161 timing reifyNode:node_modules/@esbuild/linux-x64 Completed in 93ms
+162 timing reifyNode:node_modules/@esbuild/linux-s390x Completed in 93ms
+163 timing reifyNode:node_modules/@esbuild/linux-riscv64 Completed in 93ms
+164 timing reifyNode:node_modules/@esbuild/linux-ppc64 Completed in 93ms
+165 timing reifyNode:node_modules/@esbuild/linux-mips64el Completed in 93ms
+166 timing reifyNode:node_modules/@esbuild/linux-loong64 Completed in 93ms
+167 timing reifyNode:node_modules/@esbuild/linux-ia32 Completed in 93ms
+168 timing reifyNode:node_modules/@esbuild/linux-arm64 Completed in 94ms
+169 timing reifyNode:node_modules/@esbuild/linux-arm Completed in 94ms
+170 timing reifyNode:node_modules/@esbuild/freebsd-x64 Completed in 94ms
+171 timing reifyNode:node_modules/@esbuild/freebsd-arm64 Completed in 94ms
+172 timing reifyNode:node_modules/@esbuild/darwin-arm64 Completed in 94ms
+173 timing reifyNode:node_modules/@esbuild/android-x64 Completed in 94ms
+174 timing reifyNode:node_modules/@esbuild/android-arm64 Completed in 94ms
+175 timing reifyNode:node_modules/@esbuild/android-arm Completed in 94ms
+176 timing reifyNode:node_modules/@esbuild/aix-ppc64 Completed in 94ms
+177 timing reifyNode:node_modules/fsevents Completed in 117ms
+178 timing reify:unpack Completed in 117ms
+179 timing reify:unretire Completed in 1ms
+180 timing build:queue Completed in 1ms
+181 timing build:deps Completed in 3ms
+182 timing build Completed in 3ms
+183 timing reify:build Completed in 3ms
+184 timing reify:trash Completed in 7ms
+185 timing reify:save Completed in 86ms
+186 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 462ms
+187 timing auditReport:getReport Completed in 470ms
+188 silly audit report {
+188 silly audit report   esbuild: [
+188 silly audit report     {
+188 silly audit report       id: 1102341,
+188 silly audit report       url: 'https://github.com/advisories/GHSA-67mh-4wv8-2f99',
+188 silly audit report       title: 'esbuild enables any website to send any requests to the development server and read the response',
+188 silly audit report       severity: 'moderate',
+188 silly audit report       vulnerable_versions: '<=0.24.2',
+188 silly audit report       cwe: [Array],
+188 silly audit report       cvss: [Object]
+188 silly audit report     }
+188 silly audit report   ]
+188 silly audit report }
+189 timing metavuln:cache:get:security-advisory:esbuild:jKdCIzePj7J1488qgRXvF8Srh9wutSuR1exB8YooNX62hT+qhtrUXYbArLNoIhgwbaCqKpmduh18syZU7BR9SA== Completed in 21ms
+190 http fetch GET 200 https://registry.npmjs.org/esbuild 96ms (cache miss)
+191 timing metavuln:packument:esbuild Completed in 102ms
+192 timing metavuln:load:security-advisory:esbuild:1102341 Completed in 4ms
+193 timing metavuln:calculate:security-advisory:esbuild:1102341 Completed in 107ms
+194 timing metavuln:cache:get:security-advisory:vite:tMBsdAS7JBTyRORp0YaJR984WAAsOxgmReSLBN0Nd41GhzEakjROICqAJ31iOdYG5Ijo/MlJ01p3ig1iN88+Tw== Completed in 2ms
+195 http fetch GET 200 https://registry.npmjs.org/vite 72ms (cache miss)
+196 timing metavuln:packument:vite Completed in 98ms
+197 timing metavuln:load:security-advisory:vite:jKdCIzePj7J1488qgRXvF8Srh9wutSuR1exB8YooNX62hT+qhtrUXYbArLNoIhgwbaCqKpmduh18syZU7BR9SA== Completed in 8ms
+198 timing metavuln:calculate:security-advisory:vite:jKdCIzePj7J1488qgRXvF8Srh9wutSuR1exB8YooNX62hT+qhtrUXYbArLNoIhgwbaCqKpmduh18syZU7BR9SA== Completed in 107ms
+199 timing metavuln:cache:get:security-advisory:@vitejs/plugin-react:P4XDBxCt1M9jhU3wPSnbYo14hU9TEKKi3dRjV6pE6SGkUMgEqrUpLUvU/o4utnW6O2m8Mrkk3y+AtxEbBn/p0A== Completed in 3ms
+200 http fetch GET 200 https://registry.npmjs.org/@vitejs%2fplugin-react 62ms (cache miss)
+201 timing metavuln:packument:@vitejs/plugin-react Completed in 64ms
+202 timing metavuln:load:security-advisory:@vitejs/plugin-react:tMBsdAS7JBTyRORp0YaJR984WAAsOxgmReSLBN0Nd41GhzEakjROICqAJ31iOdYG5Ijo/MlJ01p3ig1iN88+Tw== Completed in 0ms
+203 timing metavuln:calculate:security-advisory:@vitejs/plugin-react:tMBsdAS7JBTyRORp0YaJR984WAAsOxgmReSLBN0Nd41GhzEakjROICqAJ31iOdYG5Ijo/MlJ01p3ig1iN88+Tw== Completed in 64ms
+204 timing auditReport:init Completed in 322ms
+205 timing reify:audit Completed in 793ms
+206 timing reify Completed in 996ms
+207 silly ADD node_modules/fsevents
+208 silly ADD
+209 silly ADD
+210 silly ADD
+211 silly ADD
+212 silly ADD
+213 silly ADD
+214 silly ADD
+215 silly ADD
+216 silly ADD
+217 silly ADD
+218 silly ADD
+219 silly ADD
+220 silly ADD
+221 silly ADD
+222 silly ADD
+223 silly ADD
+224 silly ADD
+225 silly ADD
+226 silly ADD
+227 silly ADD
+228 silly ADD
+229 silly ADD
+230 silly ADD
+231 silly ADD
+232 silly ADD
+233 silly ADD
+234 silly ADD
+235 silly ADD
+236 silly ADD
+237 silly ADD
+238 silly ADD
+239 silly ADD
+240 silly ADD
+241 silly ADD
+242 silly ADD
+243 silly ADD
+244 silly ADD
+245 silly ADD
+246 silly ADD
+247 silly ADD
+248 silly ADD
+249 silly ADD
+250 silly ADD
+251 timing command:install Completed in 1033ms
+252 verbose exit 0
+253 timing npm Completed in 1397ms
+254 info ok
