@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { storage } from '../utils/storage.js'
 import { AnimatePresence } from 'framer-motion'
 import ImageModal from './ImageModal.jsx'
-import { uploadUnsigned, isCloudinaryConfigured } from '../utils/cloudinary.js'
 
 const STORAGE_KEY = 'lunchwheel-progress-v1'
 
@@ -41,21 +40,14 @@ export default function ProgressCalendar({ onDayToggle, onDataChange }) {
     onDayToggle?.(didCheck)
   }
 
-  const onUpload = async (key, files) => {
-    const list = Array.from(files || [])
-    if (list.length === 0) return
-    const first = list[0]
-    const dataUrl = await readFileAsDataURL(first)
+  const onUpload = async (key, file) => {
+    if (!file) return
+    const dataUrl = await readFileAsDataURL(file)
     setData(prev => ({
       ...prev,
       [key]: { ...(prev[key] || {}), checked: true, photoDataUrl: dataUrl }
     }))
     onDayToggle?.(true)
-
-    // Background upload to Cloudinary (up to 50 items)
-    if (isCloudinaryConfigured()) {
-      void uploadManyToCloudinary(list.slice(0, 50), 'lunchwheel/library')
-    }
   }
 
   return (
@@ -87,9 +79,8 @@ export default function ProgressCalendar({ onDayToggle, onDataChange }) {
                   <input
                     type="file"
                     accept="image/*"
-                    multiple
                     className="hidden"
-                    onChange={(e) => onUpload(key, e.target.files)}
+                    onChange={(e) => onUpload(key, e.target.files?.[0])}
                   />
                 </label>
                 {entry.photoDataUrl && (
@@ -133,34 +124,5 @@ function readFileAsDataURL(file) {
     reader.onerror = reject
     reader.readAsDataURL(file)
   })
-}
-
-async function uploadManyToCloudinary(files, folder) {
-  const queue = [...files]
-  const CONCURRENCY = 5
-
-  async function uploadWithRetry(file, attempts = 2) {
-    let lastErr
-    for (let i = 0; i < attempts; i++) {
-      try {
-        await uploadUnsigned({ file, folder })
-        return
-      } catch (e) {
-        lastErr = e
-      }
-    }
-    // Optionally log the last error; keep UI silent
-    console.warn('Upload failed after retries:', lastErr)
-  }
-
-  async function worker() {
-    while (queue.length) {
-      const file = queue.shift()
-      if (!file) break
-      await uploadWithRetry(file)
-    }
-  }
-
-  await Promise.all(Array.from({ length: CONCURRENCY }, worker))
 }
 
