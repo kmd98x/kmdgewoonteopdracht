@@ -1,11 +1,11 @@
-const CLOUD = import.meta?.env?.VITE_CLOUDINARY_CLOUD_NAME || 'dnxxx8qw8'
-const PRESET = import.meta?.env?.VITE_CLOUDINARY_UPLOAD_PRESET || 'srsjdbqx'
-
 export async function uploadUnsigned({ file, folder }) {
-  if (!CLOUD || !PRESET) return null
-  const endpoint = `https://api.cloudinary.com/v1_1/${CLOUD}/upload`
+  const cloud = 'dnxxx8qw8'
+  const preset = 'srsjdbqx'
+  if (!cloud || !preset) return null
+
+  const endpoint = `https://api.cloudinary.com/v1_1/${cloud}/upload`
   const form = new FormData()
-  form.append('upload_preset', PRESET)
+  form.append('upload_preset', preset)
   if (folder) form.append('folder', folder)
   form.append('file', file)
 
@@ -18,5 +18,7 @@ export async function uploadUnsigned({ file, folder }) {
 }
 
 export function isCloudinaryConfigured() {
-  return Boolean(CLOUD && PRESET)
+  return Boolean(import.meta?.env?.VITE_CLOUDINARY_CLOUD_NAME && import.meta?.env?.VITE_CLOUDINARY_UPLOAD_PRESET)
 }
+
+
