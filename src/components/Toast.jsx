@@ -12,7 +12,7 @@ export default function Toast({ type = 'success', message, onClose }) {
 
   return (
     <motion.div
-      className={`fixed bottom-6 left-1/2 -translate-x-1/2 text-white px-4 py-2 rounded-xl shadow-soft ${color}`}
+      className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] text-white px-4 py-2 rounded-xl shadow-soft ${color}`}
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: 10, opacity: 0 }}
