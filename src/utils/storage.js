@@ -10,9 +10,15 @@ export const storage = {
   },
   set(key, value) {
     try {
-      localStorage.setItem(key, JSON.stringify(value))
-    } catch {
-      // ignore quota errors
+      const serialized = JSON.stringify(value)
+      localStorage.setItem(key, serialized)
+      return { success: true }
+    } catch (error) {
+      // Check if it's a quota error
+      if (error.name === 'QuotaExceededError' || error.code === 22) {
+        return { success: false, error: 'QUOTA_EXCEEDED', message: 'Niet genoeg opslagruimte. Verwijder oude foto\'s of maak ruimte vrij.' }
+      }
+      return { success: false, error: error.name, message: 'Fout bij opslaan' }
     }
   },
 }

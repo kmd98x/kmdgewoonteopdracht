@@ -8,7 +8,7 @@ export default function Toast({ type = 'success', message, onClose }) {
     return () => clearTimeout(id)
   }, [onClose])
 
-  const color = type === 'success' ? 'bg-green-500' : 'bg-slate-700'
+  const color = type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-slate-700'
 
   return (
     <motion.div

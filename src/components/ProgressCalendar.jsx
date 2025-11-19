@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useMemo, useState } from 'react'
 import { storage } from '../utils/storage.js'
+import { uploadToCloudinary } from '../utils/cloudinary.js'
 import { AnimatePresence } from 'framer-motion'
 import ImageModal from './ImageModal.jsx'
 
@@ -22,13 +23,19 @@ function generateDays() {
   })
 }
 
-export default function ProgressCalendar({ onDayToggle, onDataChange }) {
+export default function ProgressCalendar({ onDayToggle, onDataChange, onError }) {
   const days = useMemo(() => generateDays(), [])
   const [data, setData] = useState(() => storage.get(STORAGE_KEY, {}))
   const [zoomSrc, setZoomSrc] = useState(null)
+  const [uploading, setUploading] = useState({}) // Track uploads by key
 
   useEffect(() => {
-    storage.set(STORAGE_KEY, data)
+    const result = storage.set(STORAGE_KEY, data)
+    if (!result.success) {
+      console.error('Storage error:', result.error, result.message)
+      onError?.(result.message || 'Fout bij opslaan van gegevens.')
+    }
+    // Always call onDataChange to keep UI in sync
     onDataChange?.(data)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
@@ -36,7 +43,7 @@ export default function ProgressCalendar({ onDayToggle, onDataChange }) {
   const toggleDay = (key) => {
     let didCheck = false
     setData(prev => {
-      const prevDay = prev[key] || { checked: false, photoDataUrl: null }
+      const prevDay = prev[key] || { checked: false, photoUrl: null, photoDataUrl: null }
       const nextChecked = !prevDay.checked
       didCheck = nextChecked
       const nextDay = { ...prevDay, checked: nextChecked }
@@ -48,21 +55,51 @@ export default function ProgressCalendar({ onDayToggle, onDataChange }) {
 
   const onUpload = async (key, file) => {
     if (!file) return
-    const dataUrl = await resizeImageFile(file, 1024, 0.85)
-    setData(prev => ({
-      ...prev,
-      [key]: { ...(prev[key] || {}), checked: true, photoDataUrl: dataUrl }
-    }))
-    onDayToggle?.(true)
+    
+    setUploading(prev => ({ ...prev, [key]: true }))
+    
+    try {
+      // Upload to Cloudinary
+      const cloudinaryUrl = await uploadToCloudinary(file, {
+        maxDimension: 800,
+        quality: 70
+      })
+      
+      // Update data with Cloudinary URL
+      setData(prev => ({
+        ...prev,
+        [key]: { 
+          ...(prev[key] || {}), 
+          checked: true, 
+          photoUrl: cloudinaryUrl,
+          // Keep photoDataUrl for backward compatibility, but prefer photoUrl
+          photoDataUrl: null
+        }
+      }))
+      onDayToggle?.(true)
+    } catch (error) {
+      console.error('Upload error:', error)
+      onError?.(error.message || 'Fout bij uploaden van foto. Probeer het opnieuw.')
+    } finally {
+      setUploading(prev => {
+        const next = { ...prev }
+        delete next[key]
+        return next
+      })
+    }
   }
 
   return (
     <div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
         {days.map(({ key, date }) => {
-          const entry = data[key] || { checked: false, photoDataUrl: null, feelingsNote: '', contextNote: '' }
+          const entry = data[key] || { checked: false, photoUrl: null, photoDataUrl: null, feelingsNote: '', contextNote: '' }
           const dayNum = date.getDate()
           const label = date.toLocaleDateString('nl-NL', { weekday: 'short', day: '2-digit', month: 'short' })
+          // Support both Cloudinary URLs and legacy base64 data URLs
+          const photoUrl = entry.photoUrl || entry.photoDataUrl
+          const isUploading = uploading[key]
+          
           return (
             <div key={key} className="rounded-xl p-3 border border-slate-200 bg-white/70">
               <div className="flex items-center justify-between gap-2">
@@ -80,18 +117,19 @@ export default function ProgressCalendar({ onDayToggle, onDataChange }) {
                 </label>
               </div>
               <div className="mt-3 flex items-center gap-3">
-                <label className="text-sm bg-pink-100 text-pink-700 px-2 py-1 rounded-lg cursor-pointer hover:bg-pink-200">
-                  Foto uploaden
+                <label className={`text-sm bg-pink-100 text-pink-700 px-2 py-1 rounded-lg cursor-pointer hover:bg-pink-200 ${isUploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                  {isUploading ? 'Uploaden...' : 'Foto uploaden'}
                   <input
                     type="file"
                     accept="image/*"
                     className="hidden"
+                    disabled={isUploading}
                     onChange={(e) => onUpload(key, e.target.files?.[0])}
                   />
                 </label>
-                {entry.photoDataUrl && (
-                  <button onClick={() => setZoomSrc(entry.photoDataUrl)} className="focus:outline-none">
-                    <img src={entry.photoDataUrl} alt="bewijs"
+                {photoUrl && (
+                  <button onClick={() => setZoomSrc(photoUrl)} className="focus:outline-none">
+                    <img src={photoUrl} alt="bewijs"
                          className="w-10 h-10 rounded-lg object-cover border border-slate-200" />
                   </button>
                 )}
@@ -123,44 +161,4 @@ export default function ProgressCalendar({ onDayToggle, onDataChange }) {
   )
 }
 
-async function resizeImageFile(file, maxDimension = 1024, quality = 0.85) {
-  // Read file as data URL first
-  const base64 = await new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = () => resolve(reader.result)
-    reader.onerror = reject
-    reader.readAsDataURL(file)
-  })
-
-  // If not an image, return original base64
-  if (!String(file.type || '').startsWith('image/')) return base64
-
-  // Create image element
-  const img = await new Promise((resolve, reject) => {
-    const i = new Image()
-    i.onload = () => resolve(i)
-    i.onerror = reject
-    i.src = base64
-  })
-
-  const width = img.width
-  const height = img.height
-  const scale = Math.min(1, maxDimension / Math.max(width, height))
-
-  // If small enough, keep original
-  if (scale >= 1) return base64
-
-  const canvas = document.createElement('canvas')
-  canvas.width = Math.round(width * scale)
-  canvas.height = Math.round(height * scale)
-  const ctx = canvas.getContext('2d')
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-
-  // Prefer JPEG for better compression; fallback to PNG
-  try {
-    return canvas.toDataURL('image/jpeg', quality)
-  } catch {
-    return canvas.toDataURL('image/png')
-  }
-}
 

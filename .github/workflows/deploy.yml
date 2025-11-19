@@ -35,6 +35,8 @@ jobs:
       - name: Build with base path for project Pages
         env:
           REPO_NAME: ${{ github.event.repository.name }}
+          VITE_CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          VITE_CLOUDINARY_UPLOAD_PRESET: ${{ secrets.CLOUDINARY_UPLOAD_PRESET }}
         run: |
           npm run build -- --base=/$REPO_NAME/
 

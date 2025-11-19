@@ -135,6 +135,7 @@ export default function App() {
                 const checkedCount = Object.values(data || {}).filter((d) => d?.checked).length
                 setTotalSaved(checkedCount * DAILY_SAVINGS_EURO)
               }}
+              onError={(message) => setToast({ type: 'error', message })}
             />
           </div>
         </section>
