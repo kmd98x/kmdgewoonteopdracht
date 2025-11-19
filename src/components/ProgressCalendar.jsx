@@ -53,33 +53,58 @@ export default function ProgressCalendar({ onDayToggle, onDataChange, onError })
     onDayToggle?.(didCheck)
   }
 
-  const onUpload = async (key, file) => {
+  const onUpload = async (key, file, inputElement) => {
     if (!file) return
+    
+    // Prevent multiple simultaneous uploads for the same day
+    if (uploading[key]) {
+      console.warn('Upload already in progress for', key)
+      return
+    }
     
     setUploading(prev => ({ ...prev, [key]: true }))
     
     try {
+      console.log('Starting upload for', key, 'File:', file.name, 'Size:', file.size)
+      
       // Upload to Cloudinary
       const cloudinaryUrl = await uploadToCloudinary(file, {
         maxDimension: 800,
         quality: 70
       })
       
-      // Update data with Cloudinary URL
-      setData(prev => ({
-        ...prev,
-        [key]: { 
-          ...(prev[key] || {}), 
-          checked: true, 
-          photoUrl: cloudinaryUrl,
-          // Keep photoDataUrl for backward compatibility, but prefer photoUrl
-          photoDataUrl: null
+      console.log('Upload successful for', key, 'URL:', cloudinaryUrl)
+      
+      // Update data with Cloudinary URL using functional update to avoid race conditions
+      setData(prev => {
+        const currentEntry = prev[key] || {}
+        // Only update if this is still the current state (prevent stale updates)
+        return {
+          ...prev,
+          [key]: { 
+            ...currentEntry, 
+            checked: true, 
+            photoUrl: cloudinaryUrl,
+            // Clear old photoDataUrl to avoid conflicts
+            photoDataUrl: null
+          }
         }
-      }))
+      })
+      
       onDayToggle?.(true)
+      
+      // Reset the file input to allow uploading the same file again
+      if (inputElement) {
+        inputElement.value = ''
+      }
     } catch (error) {
-      console.error('Upload error:', error)
+      console.error('Upload error for', key, ':', error)
       onError?.(error.message || 'Fout bij uploaden van foto. Probeer het opnieuw.')
+      
+      // Reset input even on error
+      if (inputElement) {
+        inputElement.value = ''
+      }
     } finally {
       setUploading(prev => {
         const next = { ...prev }
@@ -124,14 +149,35 @@ export default function ProgressCalendar({ onDayToggle, onDataChange, onError })
                     accept="image/*"
                     className="hidden"
                     disabled={isUploading}
-                    onChange={(e) => onUpload(key, e.target.files?.[0])}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0]
+                      if (file) {
+                        onUpload(key, file, e.target)
+                      }
+                    }}
                   />
                 </label>
-                {photoUrl && (
+                {photoUrl && !isUploading && (
                   <button onClick={() => setZoomSrc(photoUrl)} className="focus:outline-none">
-                    <img src={photoUrl} alt="bewijs"
-                         className="w-10 h-10 rounded-lg object-cover border border-slate-200" />
+                    <img 
+                      src={photoUrl} 
+                      alt="bewijs"
+                      key={`${key}-${entry.photoUrl || entry.photoDataUrl}`} // Force re-render when URL changes
+                      className="w-10 h-10 rounded-lg object-cover border border-slate-200" 
+                      onError={(e) => {
+                        console.error('Image load error for', key, photoUrl)
+                        e.target.style.display = 'none'
+                      }}
+                      onLoad={() => {
+                        console.log('Image loaded successfully for', key, photoUrl)
+                      }}
+                    />
                   </button>
+                )}
+                {isUploading && (
+                  <div className="w-10 h-10 rounded-lg border border-slate-200 bg-slate-100 flex items-center justify-center">
+                    <div className="w-4 h-4 border-2 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+                  </div>
                 )}
               </div>
               <div className="mt-3 space-y-2">

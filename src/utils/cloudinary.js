@@ -26,11 +26,17 @@ export async function uploadToCloudinary(file, options = {}) {
   // Resize and compress image before upload
   const processedFile = await processImageFile(file, maxDimension, quality)
 
+  // Generate unique public_id to prevent overwriting
+  const timestamp = Date.now()
+  const randomId = Math.random().toString(36).substring(2, 9)
+  const uniqueId = `lunchwheel-${timestamp}-${randomId}`
+
   // Create form data for upload
   const formData = new FormData()
   formData.append('file', processedFile)
   formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
   formData.append('folder', 'lunchwheel') // Optional: organize images in a folder
+  formData.append('public_id', uniqueId) // Unique ID to prevent overwriting
 
   try {
     const response = await fetch(CLOUDINARY_UPLOAD_URL, {
