@@ -8,11 +8,16 @@ const STORAGE_KEY = 'lunchwheel-progress-v1'
 
 // Generate the 28-day window from Nov 1, 2025
 function generateDays() {
-  const start = new Date('2025-11-01T00:00:00')
+  const startYear = 2025
+  const startMonth = 10 // November (0-indexed)
+  const startDay = 1
   return Array.from({ length: 28 }).map((_, i) => {
-    const d = new Date(start)
-    d.setDate(start.getDate() + i)
-    const key = d.toISOString().slice(0, 10) // YYYY-MM-DD
+    const d = new Date(startYear, startMonth, startDay + i)
+    // Format as YYYY-MM-DD in local timezone
+    const year = d.getFullYear()
+    const month = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    const key = `${year}-${month}-${day}`
     return { key, date: d }
   })
 }
@@ -25,6 +30,7 @@ export default function ProgressCalendar({ onDayToggle, onDataChange }) {
   useEffect(() => {
     storage.set(STORAGE_KEY, data)
     onDataChange?.(data)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   const toggleDay = (key) => {
@@ -42,7 +48,7 @@ export default function ProgressCalendar({ onDayToggle, onDataChange }) {
 
   const onUpload = async (key, file) => {
     if (!file) return
-    const dataUrl = await readFileAsDataURL(file)
+    const dataUrl = await resizeImageFile(file, 1024, 0.85)
     setData(prev => ({
       ...prev,
       [key]: { ...(prev[key] || {}), checked: true, photoDataUrl: dataUrl }
@@ -117,12 +123,44 @@ export default function ProgressCalendar({ onDayToggle, onDataChange }) {
   )
 }
 
-function readFileAsDataURL(file) {
-  return new Promise((resolve, reject) => {
+async function resizeImageFile(file, maxDimension = 1024, quality = 0.85) {
+  // Read file as data URL first
+  const base64 = await new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = () => resolve(reader.result)
     reader.onerror = reject
     reader.readAsDataURL(file)
   })
+
+  // If not an image, return original base64
+  if (!String(file.type || '').startsWith('image/')) return base64
+
+  // Create image element
+  const img = await new Promise((resolve, reject) => {
+    const i = new Image()
+    i.onload = () => resolve(i)
+    i.onerror = reject
+    i.src = base64
+  })
+
+  const width = img.width
+  const height = img.height
+  const scale = Math.min(1, maxDimension / Math.max(width, height))
+
+  // If small enough, keep original
+  if (scale >= 1) return base64
+
+  const canvas = document.createElement('canvas')
+  canvas.width = Math.round(width * scale)
+  canvas.height = Math.round(height * scale)
+  const ctx = canvas.getContext('2d')
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+
+  // Prefer JPEG for better compression; fallback to PNG
+  try {
+    return canvas.toDataURL('image/jpeg', quality)
+  } catch {
+    return canvas.toDataURL('image/png')
+  }
 }
 
