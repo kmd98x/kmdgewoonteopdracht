@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion'
 import LunchWheel from './components/Wheel.jsx'
 import RecipeModal from './components/RecipeModal.jsx'
 import ProgressCalendar from './components/ProgressCalendar.jsx'
+import CloudinaryBU from './components/CloudinaryBU.jsx'
 import Toast from './components/Toast.jsx'
 import { storage } from './utils/storage.js'
 
@@ -17,6 +18,8 @@ const STORAGE_KEYS = {
 export default function App() {
   const [selectedRecipe, setSelectedRecipe] = useState(null)
   const [toast, setToast] = useState(null)
+  const [currentPage, setCurrentPage] = useState('home') // 'home' or 'bulk-upload'
+  const [showSwitcher, setShowSwitcher] = useState(false)
 
   const totalSuccessfulDays = useMemo(() => {
     const calendar = storage.get(STORAGE_KEYS.calendar, {})
@@ -29,6 +32,18 @@ export default function App() {
   useEffect(() => {
     storage.set(STORAGE_KEYS.savings, totalSaved)
   }, [totalSaved])
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'B') {
+        e.preventDefault()
+        setShowSwitcher(prev => !prev)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   const handleDayToggle = (didCheck) => {
     setTotalSaved(prev => {
@@ -121,7 +136,46 @@ export default function App() {
           <p className="mt-2 text-slate-600">Blijf volhouden — elke dag zelfgemaakt telt én bespaart!</p>
         </header>
 
-        <section className="space-y-6 md:space-y-8">
+        {/* Navigation Tabs */}
+        {showSwitcher && (
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex bg-white rounded-xl p-1 shadow-md border border-slate-200">
+              <button
+                onClick={() => {
+                  setCurrentPage('home')
+                  setShowSwitcher(false)
+                }}
+                className={`px-6 py-2.5 rounded-lg font-medium transition-all ${
+                  currentPage === 'home'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                Kalender
+              </button>
+              <button
+                onClick={() => setCurrentPage('bulk-upload')}
+                className={`px-6 py-2.5 rounded-lg font-medium transition-all ${
+                  currentPage === 'bulk-upload'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
+                }`}
+              >
+                Bulk Upload
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Keep CloudinaryBU mounted so uploads continue in background */}
+        <div style={{ display: currentPage === 'bulk-upload' ? 'block' : 'none' }}>
+          <div className="card">
+            <CloudinaryBU onError={(message) => setToast({ type: 'error', message })} />
+          </div>
+        </div>
+
+        {currentPage === 'home' && (
+          <section className="space-y-6 md:space-y-8">
           <div className="card">
             <h2 className="text-xl font-semibold text-slate-800 mb-4">LunchWheel</h2>
             <LunchWheel onSelect={handleSpinResult} />
@@ -139,8 +193,10 @@ export default function App() {
             />
           </div>
         </section>
+        )}
 
-        <footer className="mt-8 card text-center">
+        {currentPage === 'home' && (
+          <footer className="mt-8 card text-center">
           <div className="space-y-3">
             <p className="text-lg text-slate-800">
               Tot nu toe heb je <span className="font-bold">€{totalSaved}</span> bespaard in deze 28 dagen!
@@ -160,6 +216,7 @@ export default function App() {
             </div>
           </div>
         </footer>
+        )}
 
         <AnimatePresence>{toast && (
           <Toast {...toast} onClose={() => setToast(null)} />
