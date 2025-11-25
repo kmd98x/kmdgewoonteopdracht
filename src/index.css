@@ -4,7 +4,7 @@
 
 /* App layout helpers */
 .app-container {
-  @apply min-h-screen bg-pastel-pink/60;
+  @apply min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-slate-50;
 }
 
 .card {

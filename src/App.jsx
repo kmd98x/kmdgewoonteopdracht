@@ -150,7 +150,7 @@ export default function App() {
             </div>
             <div className="w-full h-3 bg-pastel-blue rounded-full overflow-hidden">
               <div
-                className="h-full bg-pink-500"
+                className="h-full bg-blue-600"
                 style={{ width: `${Math.min(100, Math.round((totalSaved / SAVINGS_GOAL) * 100))}%` }}
                 aria-valuemin={0}
                 aria-valuemax={SAVINGS_GOAL}

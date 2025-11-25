@@ -116,33 +116,43 @@ export default function ProgressCalendar({ onDayToggle, onDataChange, onError })
 
   return (
     <div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {days.map(({ key, date }) => {
-          const entry = data[key] || { checked: false, photoUrl: null, photoDataUrl: null, feelingsNote: '', contextNote: '' }
+          const entry = data[key] || { checked: false, photoUrl: null, photoDataUrl: null, feelingsNote: '', contextNote: '', time: '', feelingEmoji: '' }
           const dayNum = date.getDate()
           const label = date.toLocaleDateString('nl-NL', { weekday: 'short', day: '2-digit', month: 'short' })
           // Support both Cloudinary URLs and legacy base64 data URLs
           const photoUrl = entry.photoUrl || entry.photoDataUrl
           const isUploading = uploading[key]
           
+          const handleEmojiClick = (emoji) => {
+            setData(prev => ({
+              ...prev,
+              [key]: {
+                ...(prev[key] || {}),
+                feelingEmoji: prev[key]?.feelingEmoji === emoji ? '' : emoji
+              }
+            }))
+          }
+          
           return (
-            <div key={key} className="rounded-xl p-3 border border-slate-200 bg-white/70">
-              <div className="flex items-center justify-between gap-2">
+            <div key={key} className="rounded-2xl p-5 md:p-6 border border-slate-200/80 bg-white shadow-sm hover:shadow-lg transition-all duration-300 backdrop-blur-sm">
+              <div className="flex items-center justify-between gap-3 mb-5">
                 <div>
-                  <div className="text-xs text-slate-500">{label}</div>
-                  <div className="text-lg font-semibold text-slate-800">Dag {dayNum}</div>
+                  <div className="text-xs md:text-sm text-slate-400 mb-1.5 font-medium tracking-wide uppercase">{label}</div>
+                  <div className="text-2xl md:text-3xl font-bold text-slate-900">Dag {dayNum}</div>
                 </div>
-                <label className="inline-flex items-center gap-2 cursor-pointer">
+                <label className="inline-flex items-center gap-2 cursor-pointer group">
                   <input
                     type="checkbox"
-                    className="w-5 h-5 accent-pink-500"
+                    className="w-5 h-5 md:w-6 md:h-6 accent-blue-600 cursor-pointer"
                     checked={entry.checked}
                     onChange={() => toggleDay(key)}
                   />
                 </label>
               </div>
-              <div className="mt-3 flex items-center gap-3">
-                <label className={`text-sm bg-pink-100 text-pink-700 px-2 py-1 rounded-lg cursor-pointer hover:bg-pink-200 ${isUploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+              <div className="mt-5 mb-5 flex items-start gap-4">
+                <label className={`text-sm font-medium bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-700 px-4 py-2.5 rounded-xl cursor-pointer hover:from-blue-100 hover:to-indigo-100 transition-all duration-200 shadow-sm hover:shadow-md border border-blue-200/50 ${isUploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
                   {isUploading ? 'Uploaden...' : 'Foto uploaden'}
                   <input
                     type="file"
@@ -158,43 +168,111 @@ export default function ProgressCalendar({ onDayToggle, onDataChange, onError })
                   />
                 </label>
                 {photoUrl && !isUploading && (
-                  <button onClick={() => setZoomSrc(photoUrl)} className="focus:outline-none">
-                    <img 
-                      src={photoUrl} 
-                      alt="bewijs"
-                      key={`${key}-${entry.photoUrl || entry.photoDataUrl}`} // Force re-render when URL changes
-                      className="w-10 h-10 rounded-lg object-cover border border-slate-200" 
-                      onError={(e) => {
-                        console.error('Image load error for', key, photoUrl)
-                        e.target.style.display = 'none'
-                      }}
-                      onLoad={() => {
-                        console.log('Image loaded successfully for', key, photoUrl)
-                      }}
-                    />
+                  <button onClick={() => setZoomSrc(photoUrl)} className="focus:outline-none group">
+                    <div className="relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                      <img 
+                        src={photoUrl} 
+                        alt="bewijs"
+                        key={`${key}-${entry.photoUrl || entry.photoDataUrl}`}
+                        className="w-16 h-16 md:w-20 md:h-20 object-cover" 
+                        onError={(e) => {
+                          console.error('Image load error for', key, photoUrl)
+                          e.target.style.display = 'none'
+                        }}
+                        onLoad={() => {
+                          console.log('Image loaded successfully for', key, photoUrl)
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
                   </button>
                 )}
                 {isUploading && (
-                  <div className="w-10 h-10 rounded-lg border border-slate-200 bg-slate-100 flex items-center justify-center">
-                    <div className="w-4 h-4 border-2 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center shadow-sm">
+                    <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
                   </div>
                 )}
               </div>
-              <div className="mt-3 space-y-2">
-                <textarea
-                  value={entry.feelingsNote || ''}
-                  onChange={(e) => setData(prev => ({ ...prev, [key]: { ...(prev[key] || {}), feelingsNote: e.target.value } }))}
-                  placeholder="Hoe voelde je je?"
-                  className="w-full text-sm p-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-300"
-                  rows={2}
-                />
-                <textarea
-                  value={entry.contextNote || ''}
-                  onChange={(e) => setData(prev => ({ ...prev, [key]: { ...(prev[key] || {}), contextNote: e.target.value } }))}
-                  placeholder="Omstandigheden / waarom (wel/niet)?"
-                  className="w-full text-sm p-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-300"
-                  rows={2}
-                />
+              <div className="mt-5 space-y-4">
+                {/* Time input */}
+                <div>
+                  <label className="block text-xs md:text-sm font-semibold text-slate-700 mb-2.5 tracking-wide">Tijd</label>
+                  <input
+                    type="time"
+                    value={entry.time || ''}
+                    onChange={(e) => setData(prev => ({ ...prev, [key]: { ...(prev[key] || {}), time: e.target.value } }))}
+                    className="w-full text-sm md:text-base p-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 focus:bg-white transition-all shadow-sm hover:shadow-md"
+                  />
+                </div>
+                
+                {/* Feelings section with emoji option */}
+                <div>
+                  <label className="block text-xs md:text-sm font-semibold text-slate-700 mb-2.5 tracking-wide">
+                    Hoe voelde je je?
+                    <span className="text-xs text-slate-500 block mt-2 font-normal leading-relaxed">
+                      Als je het liever niet wilt typen, kun je ook een emoji kiezen die het gevoel op dat moment beschreef.
+                    </span>
+                  </label>
+                  <div className="flex items-center gap-3 mb-3">
+                    <button
+                      type="button"
+                      onClick={() => handleEmojiClick('😠')}
+                      className={`text-2xl md:text-3xl p-3 md:p-3.5 rounded-xl border-2 transition-all duration-200 hover:scale-110 hover:shadow-md ${
+                        entry.feelingEmoji === '😠' 
+                          ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-md ring-2 ring-blue-200' 
+                          : 'border-slate-200 hover:border-blue-300 bg-white shadow-sm'
+                      }`}
+                      title="Boos"
+                    >
+                      😠
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleEmojiClick('😐')}
+                      className={`text-2xl md:text-3xl p-3 md:p-3.5 rounded-xl border-2 transition-all duration-200 hover:scale-110 hover:shadow-md ${
+                        entry.feelingEmoji === '😐' 
+                          ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-md ring-2 ring-blue-200' 
+                          : 'border-slate-200 hover:border-blue-300 bg-white shadow-sm'
+                      }`}
+                      title="Neutraal"
+                    >
+                      😐
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleEmojiClick('😊')}
+                      className={`text-2xl md:text-3xl p-3 md:p-3.5 rounded-xl border-2 transition-all duration-200 hover:scale-110 hover:shadow-md ${
+                        entry.feelingEmoji === '😊' 
+                          ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-md ring-2 ring-blue-200' 
+                          : 'border-slate-200 hover:border-blue-300 bg-white shadow-sm'
+                      }`}
+                      title="Blij"
+                    >
+                      😊
+                    </button>
+                    {entry.feelingEmoji && (
+                      <span className="text-2xl md:text-3xl ml-2 drop-shadow-sm">{entry.feelingEmoji}</span>
+                    )}
+                  </div>
+                  <textarea
+                    value={entry.feelingsNote || ''}
+                    onChange={(e) => setData(prev => ({ ...prev, [key]: { ...(prev[key] || {}), feelingsNote: e.target.value } }))}
+                    placeholder="Of typ hier hoe je je voelde..."
+                    className="w-full text-sm md:text-base p-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 focus:bg-white transition-all shadow-sm hover:shadow-md resize-none"
+                    rows={3}
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-xs md:text-sm font-semibold text-slate-700 mb-2.5 tracking-wide">Omstandigheden / waarom (wel/niet)?</label>
+                  <textarea
+                    value={entry.contextNote || ''}
+                    onChange={(e) => setData(prev => ({ ...prev, [key]: { ...(prev[key] || {}), contextNote: e.target.value } }))}
+                    placeholder="Beschrijf de omstandigheden..."
+                    className="w-full text-sm md:text-base p-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 focus:bg-white transition-all shadow-sm hover:shadow-md resize-none"
+                    rows={3}
+                  />
+                </div>
               </div>
             </div>
           )

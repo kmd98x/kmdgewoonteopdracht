@@ -102,7 +102,7 @@ export default function LunchWheel({ onSelect }) {
       <div className="relative">
         {/* Pointer */}
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-          <div className="w-0 h-0 border-l-8 border-r-8 border-b-8 border-l-transparent border-r-transparent border-b-pink-500" />
+          <div className="w-0 h-0 border-l-8 border-r-8 border-b-8 border-l-transparent border-r-transparent border-b-blue-600" />
         </div>
 
         <motion.div
@@ -115,27 +115,31 @@ export default function LunchWheel({ onSelect }) {
         >
           {/* Labels */}
           <div className="relative w-full h-full rounded-full overflow-hidden">
-            {RECIPES.map((r, i) => (
-              <div
-                key={r.name}
-                className="absolute top-1/2 left-1/2 text-xs md:text-sm font-semibold text-slate-800"
-                style={{
-                  transform: `rotate(${i * sliceAngle}deg) translate(0, -44%)`,
-                  transformOrigin: '0 0'
-                }}
-              >
-                <span className="bg-white/80 rounded-lg px-3 py-1.5 shadow-soft tracking-wide whitespace-nowrap backdrop-blur-sm">
-                  {r.name}
-                </span>
-              </div>
-            ))}
+            {RECIPES.map((r, i) => {
+              // Calculate the center angle of each segment
+              const centerAngle = i * sliceAngle + sliceAngle / 2
+              return (
+                <div
+                  key={r.name}
+                  className="absolute top-1/2 left-1/2 text-xs md:text-sm font-semibold text-slate-800"
+                  style={{
+                    transform: `rotate(${centerAngle}deg) translate(0, -44%)`,
+                    transformOrigin: '0 0'
+                  }}
+                >
+                  <span className="bg-white/80 rounded-lg px-3 py-1.5 shadow-soft tracking-wide whitespace-nowrap backdrop-blur-sm">
+                    {r.name}
+                  </span>
+                </div>
+              )
+            })}
           </div>
         </motion.div>
       </div>
       <button
         onClick={spin}
         disabled={spinning}
-        className="px-4 py-2 rounded-xl bg-pink-500 text-white font-semibold shadow-soft disabled:opacity-60"
+        className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-soft disabled:opacity-60 transition-colors"
       >{spinning ? 'Draaien…' : 'Draai het wiel'}</button>
     </div>
   )
